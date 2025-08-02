@@ -116,7 +116,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-    custom_data = base64encode(templatefile("${path.module}/cloud-init.yml", {
+    custom_data = base64encode(templatefile("cloud-init.yml", {
     weather_api_key = var.weather_api_key
   }))
   
