@@ -1,3 +1,5 @@
+#cloud-config
+
 package_update: true
 package_upgrade: true
 
@@ -5,6 +7,11 @@ packages:
   - docker.io
   - docker-compose
   - git
+
+write_files:
+  - path: /opt/home-assignment/.env
+    content: |
+      WEATHER_API_KEY=${weather_api_key}
 
 runcmd:
   - [ sh, -c, "systemctl enable docker && systemctl start docker" ]
