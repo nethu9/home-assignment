@@ -1,1 +1,12 @@
-#
+package_update: true
+package_upgrade: true
+
+packages:
+  - docker.io
+  - docker-compose
+  - git
+
+runcmd:
+  - [ sh, -c, "systemctl enable docker && systemctl start docker" ]
+  - git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment
+  - cd /opt/home-assignment && docker-compose up -d

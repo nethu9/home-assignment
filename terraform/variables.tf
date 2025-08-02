@@ -24,3 +24,5 @@ variable "app" {
   default = "temperature"
 }
 variable "ssh_public_key" {}
+
+variable "weather_api_key" {}
