@@ -1,123 +1,60 @@
 {
-    "dashboard": {
-      "id": null,
-      "uid": null,
-      "title": "Temperature Dashboard",
-      "schemaVersion": 36,
-      "version": 0,
-      "refresh": "5s",
-      "panels": [
-        {
-          "id": 1,
-          "type": "timeseries",
-          "title": "Temperature Dashboard",
-          "gridPos": {
-            "x": 0,
-            "y": 0,
-            "h": 8,
-            "w": 12
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "smooth",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "lineWidth": 2,
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "spanNulls": false,
-                "insertNulls": false,
-                "showPoints": "auto",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
-                },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "pluginVersion": "12.2.0-16636675413",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "expr": "weather_temperature_celsius",
-              "format": "time_series",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            }
-          ],
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none",
-              "hideZeros": false,
-              "hoverProximity": -3,
-              "values": true
-            },
-            "legend": {
-              "showLegend": true,
-              "displayMode": "list",
-              "placement": "bottom",
-              "calcs": []
-            }
-          },
-          "links": [
-            {
-              "title": "Show Tallinn Weather Details",
-              "url": "http://4.233.70.68:8000/metrics"
-            }
-          ]
-        }
-      ]
+    "uid": "temperature-dashboard",
+    "title": "Temperature Dashboard",
+    "tags": ["temperature"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
     },
-    "overwrite": true
+    "panels": [
+      {
+        "id": 1,
+        "type": "timeseries",
+        "title": "Weather Temperature (°C)",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "weather_temperature_celsius",
+            "legendFormat": "Temperature",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "celsius",
+            "color": {
+              "mode": "palette-classic"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "red", "value": 30 }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 9
+        },
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        }
+      }
+    ]
   }  
