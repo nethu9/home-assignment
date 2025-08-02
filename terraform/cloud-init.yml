@@ -15,4 +15,5 @@ write_files:
 
 runcmd:
   - [ sh, -c, "systemctl enable docker && systemctl start docker" ]
-  - [ sh, -c, "git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment && cd /opt/home-assignment && docker-compose --env-file .env up -d" ]
+  - [ sh, -c, "for i in {1..10}; do git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment && break || sleep 10; done" ]
+  - [ sh, -c, "cd /opt/home-assignment && docker-compose --env-file .env up -d" ]
