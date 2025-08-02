@@ -1,12 +1,43 @@
 name: Deploy Infra + Monitoring
+
 on:
   workflow_dispatch:
-  #push:
-    #branches:
-     # - main
+  # push:
+  #   branches:
+  #     - main
+
 jobs:
-  provision-azure-infra:
+  environment-setup:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SetUp Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.0
+
+  sonarcloud-scan:
+    runs-on: ubuntu-latest
+    needs: environment-setup
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=app
+
+  terraform-provision:
+    runs-on: ubuntu-latest
+    needs: sonarcloud-scan
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -18,10 +49,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: SetUp Terraform 
+
+      - name: SetUp Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.8.0
+
       - name: Terraform Provisioning
         working-directory: ./terraform
         run: |
