@@ -8,13 +8,8 @@ packages:
   - docker-compose
   - git
 
-write_files:
-  - path: /root/home-assignment.env
-    content: |
-      WEATHER_API_KEY=${weather_api_key}
-
 runcmd:
   - [ sh, -c, "systemctl enable docker && systemctl start docker" ]
-  - cd /opt
-  - git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment
-  - cd /opt/home-assignment && docker-compose --env-file .env up -d
+  - [ sh, -c, "git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment" ]
+  - [ sh, -c, "echo 'WEATHER_API_KEY=${weather_api_key}' > /opt/home-assignment/.env" ]
+  - [ sh, -c, "cd /opt/home-assignment && docker-compose --env-file .env up -d" ]
