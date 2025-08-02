@@ -16,4 +16,5 @@ write_files:
 runcmd:
   - [ sh, -c, "systemctl enable docker && systemctl start docker" ]
   - git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment
-  - cd /opt/home-assignment && docker-compose up -d
+  - cp /opt/home-assignment/.env /opt/home-assignment/.env
+  - cd /opt/home-assignment && docker-compose --env-file .env up -d
