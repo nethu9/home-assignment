@@ -9,11 +9,3 @@ providers:
     updateIntervalSeconds: 10
     options:
       path: /etc/grafana/provisioning/dashboards
-  - name: "Weather Dashboards"
-    orgId: 1
-    folder: ""
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 10
-    options:
-      path: /etc/grafana/provisioning/dashboards
