@@ -48,7 +48,7 @@ This GitHub Actions pipeline includes three main jobs:
 
 ### Prometheus (`prometheus/prometheus.yml`)
 
-- Scrapes metrics from the exporter at `localhost:8000/metrics`
+- Scrapes metrics from the exporter at `<pip>:8000/metrics`
 
 ### Grafana (`grafana/provisioning/`)
 
@@ -82,3 +82,4 @@ runcmd:
   - git clone https://github.com/nethu9/home-assignment.git /opt/home-assignment
   - echo 'WEATHER_API_KEY=${weather_api_key}' > /opt/home-assignment/.env
   - cd /opt/home-assignment && docker-compose --env-file .env up -d
+
